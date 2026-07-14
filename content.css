@@ -1,0 +1,119 @@
+.nlm-bulk-toggle-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483000;
+  padding: 10px 16px;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nlm-bulk-toggle-btn:hover {
+  background: #1558b0;
+}
+
+.nlm-bulk-toggle-btn.nlm-bulk-toggle-active {
+  background: #d93025;
+}
+
+.nlm-bulk-toggle-btn.nlm-bulk-toggle-active:hover {
+  background: #b1271b;
+}
+
+.nlm-bulk-panel {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 2147483000;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  padding: 12px 16px;
+  font-family: "Segoe UI", "Hiragino Sans", sans-serif;
+  min-width: 480px;
+  max-width: 90vw;
+}
+
+.nlm-bulk-panel-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nlm-bulk-count {
+  font-size: 13px;
+  color: #333;
+  margin-right: 4px;
+}
+
+.nlm-bulk-panel button {
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  background: #f1f3f4;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.nlm-bulk-panel button:hover {
+  background: #e2e5e7;
+}
+
+.nlm-bulk-execute {
+  background: #d93025 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.nlm-bulk-execute:hover {
+  background: #b1271b !important;
+}
+
+.nlm-bulk-execute:disabled {
+  background: #e0a29c !important;
+  cursor: not-allowed;
+}
+
+.nlm-bulk-status {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+.nlm-bulk-status-error {
+  color: #d93025;
+  font-weight: 600;
+}
+
+.nlm-bulk-card-relative {
+  position: relative !important;
+}
+
+.nlm-bulk-checkbox-overlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2147483000;
+  background: #fff;
+  border-radius: 4px;
+  padding: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nlm-bulk-checkbox-overlay input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
