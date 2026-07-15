@@ -12,7 +12,7 @@ delete them in bulk.
 2. Open `chrome://extensions` in Chrome
 3. Turn on "Developer mode" in the top right
 4. Click "Load unpacked"
-5. Select the `notebooklm-bulk-delete` folder you extracted/cloned in step 1 (the folder that directly contains `manifest.json`)
+5. In the folder picker, open the extracted folder and go one level further in if needed, until you can see `manifest.json` in the file list — then select that folder. (GitHub's ZIP download wraps everything in an extra folder like `notebooklm-bulk-delete-main`; make sure you select the inner folder that has `manifest.json`, `content.js`, etc. directly inside it, not the outer one.)
 6. Open the NotebookLM home screen (reload it if it's already open)
 
 ## Usage
