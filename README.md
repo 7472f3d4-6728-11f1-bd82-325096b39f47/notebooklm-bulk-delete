@@ -13,6 +13,10 @@ delete them in bulk.
 3. Turn on "Developer mode" in the top right
 4. Click "Load unpacked"
 5. In the folder picker, open the extracted folder and go one level further in if needed, until you can see `manifest.json` in the file list — then select that folder. (GitHub's ZIP download wraps everything in an extra folder like `notebooklm-bulk-delete-main`; make sure you select the inner folder that has `manifest.json`, `content.js`, etc. directly inside it, not the outer one.)
+
+   ![Folder picker showing the correct nested folder to select](docs/install-folder-picker.png)
+
+   Since this dialog only shows folders, files like `manifest.json` won't be listed — use the path bar at the top (showing the folder name twice, e.g. `notebooklm-bulk-delete-main > notebookIm-bulk-delete-main`) to confirm you're one level in, then click "Select Folder".
 6. Open the NotebookLM home screen (reload it if it's already open)
 
 ## Usage
