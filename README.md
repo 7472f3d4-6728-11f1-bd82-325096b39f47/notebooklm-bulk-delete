@@ -21,6 +21,8 @@ delete them in bulk.
 
 ## Usage
 
+![Notebook cards with checkboxes selected, and the bulk delete panel at the bottom of the screen](docs/usage-bulk-select.png)
+
 1. Click the "Bulk Delete Mode" button that appears in the bottom right of the screen
 2. Checkboxes appear in the top-left corner of each notebook card — check the ones you want to delete
    (you can also use "Select All" / "Deselect All" in the panel at the bottom of the screen)
