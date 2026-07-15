@@ -8,11 +8,12 @@ delete them in bulk.
 
 ## Installation
 
-1. Open `chrome://extensions` in Chrome
-2. Turn on "Developer mode" in the top right
-3. Click "Load unpacked"
-4. Select this directory (`notebooklm-bulk-delete`)
-5. Open the NotebookLM home screen (reload it if it's already open)
+1. Download this repository (top right "Code" → "Download ZIP" → extract it, or `git clone`)
+2. Open `chrome://extensions` in Chrome
+3. Turn on "Developer mode" in the top right
+4. Click "Load unpacked"
+5. Select the `notebooklm-bulk-delete` folder you extracted/cloned in step 1 (the folder that directly contains `manifest.json`)
+6. Open the NotebookLM home screen (reload it if it's already open)
 
 ## Usage
 
