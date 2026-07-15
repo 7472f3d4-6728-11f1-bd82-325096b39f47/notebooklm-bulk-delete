@@ -1,71 +1,77 @@
-# NotebookLM 一括削除 (Chrome拡張)
+# NotebookLM Bulk Delete (Chrome Extension)
 
-NotebookLM (https://notebooklm.google.com) のホーム画面（ノートブック一覧）で、
-複数のノートブックを選択して一括削除できるようにする Chrome 拡張機能 (Manifest V3) です。
+[日本語](README.ja.md)
 
-## インストール手順
+A Chrome extension (Manifest V3) that lets you select multiple notebooks on the
+NotebookLM (https://notebooklm.google.com) home screen (notebook list) and
+delete them in bulk.
 
-1. Chrome で `chrome://extensions` を開く
-2. 右上の「デベロッパーモード」をONにする
-3. 「パッケージ化されていない拡張機能を読み込む」をクリック
-4. このディレクトリ (`notebooklm-bulk-delete`) を選択する
-5. NotebookLM のホーム画面を開く（既に開いている場合はリロードする）
+## Installation
 
-## 使い方
+1. Open `chrome://extensions` in Chrome
+2. Turn on "Developer mode" in the top right
+3. Click "Load unpacked"
+4. Select this directory (`notebooklm-bulk-delete`)
+5. Open the NotebookLM home screen (reload it if it's already open)
 
-1. 画面右下に表示される「一括削除モード」ボタンをクリックする
-2. 各ノートブックカードの左上にチェックボックスが表示されるので、削除したいものにチェックを入れる
-   （画面下部のパネルの「全選択」「全解除」でまとめて操作も可能）
-3. パネルの「選択したN件を削除」をクリックする
-4. 確認ダイアログで「OK」を押すと、選択したノートブックを1件ずつ自動で
-   （3点メニューを開く → 「削除」を選ぶ → 確認ダイアログで削除を押す）処理していきます
-5. 進捗・エラーはパネル下部に表示されます
+## Usage
 
-「一括削除モード」ボタンをもう一度押すか、パネルの「閉じる」でモードを終了できます。
+1. Click the "Bulk Delete Mode" button that appears in the bottom right of the screen
+2. Checkboxes appear in the top-left corner of each notebook card — check the ones you want to delete
+   (you can also use "Select All" / "Deselect All" in the panel at the bottom of the screen)
+3. Click "Delete N selected" in the panel
+4. Press "OK" in the confirmation dialog, and the selected notebooks are processed
+   automatically one by one (open the 3-dot menu → choose "Delete" → confirm the delete dialog)
+5. Progress and errors are shown at the bottom of the panel
 
-## 動作の仕組み（実装メモ）
+You can exit the mode by clicking the "Bulk Delete Mode" button again, or by clicking "Close" in the panel.
 
-- `content.js` が `notebooklm.google.com` にのみ注入されます
-- NotebookLM は Angular 製の SPA で、クラス名やDOM構造は Google 側のリリースで
-  変わりやすいため、実際のDOM要素を特定するロジックはすべて
-  `content.js` 冒頭の **`SELECTORS`** オブジェクトに集約しています
-- 各要素は「候補セレクタの配列」+「aria-label/textContentの候補文字列（日本語・英語）」
-  で複数フォールバックしながら検索する作りになっています
-- ボタンクリック後の要素出現待ちは `waitFor()`（MutationObserver + ポーリング）で行います
+## How it works (implementation notes)
 
-## 動作しない場合の調整方法（重要）
+- `content.js` is injected only into `notebooklm.google.com`
+- NotebookLM is an Angular SPA, and its class names and DOM structure change
+  frequently across Google's releases, so all logic for locating actual DOM
+  elements is centralized in the **`SELECTORS`** object at the top of `content.js`
+- Each element is looked up via an array of candidate selectors plus candidate
+  `aria-label`/`textContent` strings (Japanese and English), falling back
+  through multiple candidates
+- Waiting for elements to appear after a button click is done via `waitFor()`
+  (MutationObserver + polling)
 
-このリポジトリ作成時点では実際の NotebookLM の DOM を確認できていないため、
-`SELECTORS` の値は「ありそうな候補」を仮置きしています。動作しない・途中で
-止まる場合は、以下の手順で調整してください。
+## How to fix it when it stops working (important)
 
-1. NotebookLM のホーム画面で対象要素を右クリック →「検証」でDevToolsを開く
-2. 該当要素のタグ名・`role`属性・`aria-label`・クラス名を確認する
-3. `content.js` の `SELECTORS` オブジェクト内、該当する項目に見つけたセレクタ／
-   ラベル文字列を追加する（既存の配列に追記するだけでよい。既存候補は残してOK）
+At the time this repo was created, the actual NotebookLM DOM had not been
+verified, so the values in `SELECTORS` are best-guess placeholders. If the
+extension doesn't work or gets stuck partway through, adjust it as follows:
 
-調整が必要になりやすい箇所（優先度順）:
+1. On the NotebookLM home screen, right-click the target element → "Inspect" to open DevTools
+2. Check the element's tag name, `role` attribute, `aria-label`, and class names
+3. Add the selector/label string you found to the corresponding entry in the
+   `SELECTORS` object in `content.js` (just append to the existing array — no need to remove existing candidates)
 
-| 項目 | 説明 |
+Places that are most likely to need adjustment (in priority order):
+
+| Item | Description |
 |---|---|
-| `SELECTORS.card` | ホーム画面のノートブックカード自体を特定するセレクタ。ここが合わないと拡張全体が機能しません。 |
-| `SELECTORS.moreButton` | カード内の「その他の操作」(3点メニュー)ボタン。アイコンボタンで aria-label が無い場合は追加のセレクタ・属性（例: `data-*` 属性）を足す必要があります。 |
-| `SELECTORS.menuPopup` | 3点メニューを開いた際に出てくるポップアップメニュー自体。Angular Material の CDK Overlay 構造に依存するため変わりやすいです。 |
-| `SELECTORS.deleteMenuItem` | メニュー内の「削除」項目のラベル文字列・セレクタ。 |
-| `SELECTORS.confirmDialog` / `SELECTORS.confirmDeleteButton` | 削除確認ダイアログ本体と、その中の実行ボタン。ダイアログのボタンラベルが「削除」以外（例:「完全に削除」等）の場合はラベル配列に追加してください。 |
-| `SELECTORS.cardTitle` | 進捗表示用にカードのタイトルを取得するためのセレクタ。無くても動作はしますが「(タイトル不明)」と表示されます。 |
+| `SELECTORS.card` | Selector that identifies each notebook card on the home screen. If this doesn't match, the whole extension stops working. |
+| `SELECTORS.moreButton` | The "more actions" (3-dot menu) button inside each card. If it's an icon button with no `aria-label`, you may need to add selectors based on other attributes (e.g. `data-*`). |
+| `SELECTORS.menuPopup` | The popup menu that appears when the 3-dot menu is opened. Depends on Angular Material's CDK Overlay structure, so it changes often. |
+| `SELECTORS.deleteMenuItem` | The selector/label string for the "Delete" item inside the menu. |
+| `SELECTORS.confirmDialog` / `SELECTORS.confirmDeleteButton` | The delete confirmation dialog itself, and its confirm button. If the button label is something other than "Delete" (e.g. "Delete permanently"), add it to the label array. |
+| `SELECTORS.cardTitle` | Selector used to read the card title for progress display. Not required for the extension to work — without it, the title just shows as "(unknown title)". |
 
-各セレクタは配列なので、**既存の値を消さずに追記していく**運用を推奨します
-（複数バージョンのDOMに同時対応しやすくなるため）。
+Since each selector is an array, we recommend **appending new values instead of
+removing existing ones** — this makes it easier to support multiple DOM
+versions at once.
 
-## ファイル構成
+## File structure
 
-- `manifest.json` — Manifest V3 定義（`notebooklm.google.com` のみに content script を注入）
-- `content.js` — 本体ロジック（UI生成・DOM検索・削除フロー自動化）
-- `content.css` — トグルボタン・パネル・チェックボックスのスタイル
-- `README.md` — このファイル
+- `manifest.json` — Manifest V3 definition (injects the content script only into `notebooklm.google.com`)
+- `content.js` — Main logic (UI generation, DOM lookup, delete flow automation)
+- `content.css` — Styles for the toggle button, panel, and checkboxes
+- `README.md` — This file
 
-## 権限
+## Permissions
 
-`permissions` は使用していません。`content_scripts.matches` により
-`https://notebooklm.google.com/*` にのみ動作範囲を限定しています。
+No `permissions` are used. `content_scripts.matches` restricts the extension's
+scope to `https://notebooklm.google.com/*` only.
