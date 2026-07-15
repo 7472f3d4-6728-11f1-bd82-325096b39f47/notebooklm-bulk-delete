@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "NotebookLM 一括削除",
+  "default_locale": "en",
+  "name": "__MSG_extName__",
   "version": "1.0.0",
-  "description": "NotebookLMのホーム画面でノートブックを複数選択して一括削除できるようにします。",
+  "description": "__MSG_extDescription__",
   "content_scripts": [
     {
       "matches": ["https://notebooklm.google.com/*"],

@@ -214,7 +214,7 @@
       const text = normalize(el && el.textContent);
       if (text) return text;
     }
-    return normalize(elementLabelText(card)) || "(タイトル不明)";
+    return normalize(elementLabelText(card)) || chrome.i18n.getMessage("titleUnknown");
   }
 
   /** カードからノートブックID(URLの /notebook/<id>)を取り出す */
@@ -239,7 +239,7 @@
     const btn = document.createElement("button");
     btn.id = "nlm-bulk-delete-toggle";
     btn.className = "nlm-bulk-toggle-btn";
-    btn.textContent = "一括削除モード";
+    btn.textContent = chrome.i18n.getMessage("toggleButtonEnter");
     btn.addEventListener("click", () => {
       setActive(!STATE.active);
     });
@@ -259,7 +259,7 @@
 
     const count = document.createElement("span");
     count.className = "nlm-bulk-count";
-    count.textContent = "選択: 0件";
+    count.textContent = chrome.i18n.getMessage("selectedCount", ["0"]);
     row.appendChild(count);
 
     const mkButton = (cls, text) => {
@@ -270,10 +270,10 @@
       row.appendChild(b);
       return b;
     };
-    mkButton("nlm-bulk-select-all", "全選択");
-    mkButton("nlm-bulk-select-none", "全解除");
-    mkButton("nlm-bulk-execute", "選択したN件を削除");
-    mkButton("nlm-bulk-close", "閉じる");
+    mkButton("nlm-bulk-select-all", chrome.i18n.getMessage("selectAll"));
+    mkButton("nlm-bulk-select-none", chrome.i18n.getMessage("deselectAll"));
+    mkButton("nlm-bulk-execute", chrome.i18n.getMessage("executeDelete", ["0"]));
+    mkButton("nlm-bulk-close", chrome.i18n.getMessage("close"));
 
     const status = document.createElement("div");
     status.className = "nlm-bulk-status";
@@ -299,9 +299,9 @@
     const setText = (el, text) => {
       if (el.textContent !== text) el.textContent = text;
     };
-    setText(panelEl.querySelector(".nlm-bulk-count"), `選択: ${count}件`);
+    setText(panelEl.querySelector(".nlm-bulk-count"), chrome.i18n.getMessage("selectedCount", [String(count)]));
     const execBtn = panelEl.querySelector(".nlm-bulk-execute");
-    setText(execBtn, `選択した${count}件を削除`);
+    setText(execBtn, chrome.i18n.getMessage("executeDelete", [String(count)]));
     const disabled = count === 0 || STATE.running;
     if (execBtn.disabled !== disabled) execBtn.disabled = disabled;
   }
@@ -355,10 +355,7 @@
   function decorateCards() {
     const cards = findCards();
     if (cards.length === 0) {
-      setStatus(
-        "ノートブックカードが見つかりませんでした。SELECTORS.card の調整が必要な可能性があります。",
-        true
-      );
+      setStatus(chrome.i18n.getMessage("cardsNotFound"), true);
     }
     cards.forEach(attachCheckbox);
   }
@@ -391,7 +388,9 @@
     STATE.active = active;
     if (toggleBtnEl) {
       toggleBtnEl.classList.toggle("nlm-bulk-toggle-active", active);
-      toggleBtnEl.textContent = active ? "一括削除モード終了" : "一括削除モード";
+      toggleBtnEl.textContent = active
+        ? chrome.i18n.getMessage("toggleButtonExit")
+        : chrome.i18n.getMessage("toggleButtonEnter");
     }
     if (active) {
       if (!panelEl) panelEl = createPanel();
@@ -411,11 +410,11 @@
 
   async function deleteOneCard(card, index, total) {
     const title = getCardTitle(card);
-    setStatus(`(${index}/${total}) 「${title}」を削除中...`);
+    setStatus(chrome.i18n.getMessage("deletingStatus", [String(index), String(total), title]));
 
     const moreBtn = findByLabel(SELECTORS.moreButton.selectors, SELECTORS.moreButton.labels, card);
     if (!moreBtn) {
-      throw new Error(`「その他の操作」ボタンが見つかりません（カード: ${title}）。SELECTORS.moreButton の調整が必要です。`);
+      throw new Error(chrome.i18n.getMessage("moreButtonNotFound", [title]));
     }
     moreBtn.click();
 
@@ -423,7 +422,7 @@
       const popup = queryAllUnique(SELECTORS.menuPopup).find(isVisible);
       return popup || null;
     }).catch(() => {
-      throw new Error(`メニューが開きませんでした（カード: ${title}）。SELECTORS.menuPopup の調整が必要です。`);
+      throw new Error(chrome.i18n.getMessage("menuNotOpened", [title]));
     });
 
     const deleteItem = await waitFor(() => {
@@ -433,7 +432,7 @@
         menuPopup || document
       );
     }).catch(() => {
-      throw new Error(`メニュー内の「削除」項目が見つかりません（カード: ${title}）。SELECTORS.deleteMenuItem の調整が必要です。`);
+      throw new Error(chrome.i18n.getMessage("deleteMenuItemNotFound", [title]));
     });
 
     deleteItem.click();
@@ -442,7 +441,7 @@
       const d = queryAllUnique(SELECTORS.confirmDialog).find(isVisible);
       return d || null;
     }).catch(() => {
-      throw new Error(`確認ダイアログが表示されませんでした（カード: ${title}）。SELECTORS.confirmDialog の調整が必要です。`);
+      throw new Error(chrome.i18n.getMessage("confirmDialogNotShown", [title]));
     });
 
     const confirmBtn = await waitFor(() => {
@@ -452,7 +451,7 @@
         dialog || document
       );
     }).catch(() => {
-      throw new Error(`確認ダイアログ内の削除ボタンが見つかりません（カード: ${title}）。SELECTORS.confirmDeleteButton の調整が必要です。`);
+      throw new Error(chrome.i18n.getMessage("confirmDeleteButtonNotFound", [title]));
     });
 
     confirmBtn.click();
@@ -472,7 +471,7 @@
     if (targets.length === 0) return;
 
     const ok = window.confirm(
-      `選択した${targets.length}件のノートブックを削除します。この操作は取り消せません。よろしいですか？`
+      chrome.i18n.getMessage("confirmDeleteMessage", [String(targets.length)])
     );
     if (!ok) return;
 
@@ -508,7 +507,7 @@
           successCount++;
         } catch (err) {
           failCount++;
-          setStatus(`エラー: ${err.message}`, true);
+          setStatus(chrome.i18n.getMessage("errorPrefix", [err.message]), true);
           await sleep(1500);
         }
       }
@@ -521,8 +520,8 @@
     STATE.running = false;
     updatePanel();
     setStatus(
-      `完了しました。成功: ${successCount}件 / 失敗: ${failCount}件` +
-        (failCount > 0 ? "（失敗分はページを再読み込みして再試行してください）" : "")
+      chrome.i18n.getMessage("completeStatus", [String(successCount), String(failCount)]) +
+        (failCount > 0 ? chrome.i18n.getMessage("completeStatusFailedSuffix") : "")
     );
 
     decorateCards();
@@ -534,7 +533,7 @@
     if (queue.length === 0) return;
 
     setActive(true);
-    setStatus(`ページが再読み込みされたため、残り${queue.length}件の削除を自動再開します...`);
+    setStatus(chrome.i18n.getMessage("resumeStatus", [String(queue.length)]));
 
     // カード一覧の描画を待ってから再開
     await waitFor(() => findCards().length > 0, 20000).catch(() => null);

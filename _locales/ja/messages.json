@@ -1,0 +1,152 @@
+{
+  "extName": {
+    "message": "NotebookLM 一括削除"
+  },
+  "extDescription": {
+    "message": "NotebookLMのホーム画面でノートブックを複数選択して一括削除できるようにします。"
+  },
+  "toggleButtonEnter": {
+    "message": "一括削除モード"
+  },
+  "toggleButtonExit": {
+    "message": "一括削除モード終了"
+  },
+  "selectAll": {
+    "message": "全選択"
+  },
+  "deselectAll": {
+    "message": "全解除"
+  },
+  "executeDelete": {
+    "message": "選択した$COUNT$件を削除",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "close": {
+    "message": "閉じる"
+  },
+  "selectedCount": {
+    "message": "選択: $COUNT$件",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "cardsNotFound": {
+    "message": "ノートブックカードが見つかりませんでした。SELECTORS.card の調整が必要な可能性があります。"
+  },
+  "titleUnknown": {
+    "message": "(タイトル不明)"
+  },
+  "deletingStatus": {
+    "message": "($INDEX$/$TOTAL$) 「$TITLE$」を削除中...",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "1"
+      },
+      "total": {
+        "content": "$2",
+        "example": "5"
+      },
+      "title": {
+        "content": "$3",
+        "example": "マイノートブック"
+      }
+    }
+  },
+  "moreButtonNotFound": {
+    "message": "「その他の操作」ボタンが見つかりません（カード: $TITLE$）。SELECTORS.moreButton の調整が必要です。",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "マイノートブック"
+      }
+    }
+  },
+  "menuNotOpened": {
+    "message": "メニューが開きませんでした（カード: $TITLE$）。SELECTORS.menuPopup の調整が必要です。",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "マイノートブック"
+      }
+    }
+  },
+  "deleteMenuItemNotFound": {
+    "message": "メニュー内の「削除」項目が見つかりません（カード: $TITLE$）。SELECTORS.deleteMenuItem の調整が必要です。",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "マイノートブック"
+      }
+    }
+  },
+  "confirmDialogNotShown": {
+    "message": "確認ダイアログが表示されませんでした（カード: $TITLE$）。SELECTORS.confirmDialog の調整が必要です。",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "マイノートブック"
+      }
+    }
+  },
+  "confirmDeleteButtonNotFound": {
+    "message": "確認ダイアログ内の削除ボタンが見つかりません（カード: $TITLE$）。SELECTORS.confirmDeleteButton の調整が必要です。",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "マイノートブック"
+      }
+    }
+  },
+  "confirmDeleteMessage": {
+    "message": "選択した$COUNT$件のノートブックを削除します。この操作は取り消せません。よろしいですか？",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "errorPrefix": {
+    "message": "エラー: $MESSAGE$",
+    "placeholders": {
+      "message": {
+        "content": "$1",
+        "example": "問題が発生しました"
+      }
+    }
+  },
+  "resumeStatus": {
+    "message": "ページが再読み込みされたため、残り$COUNT$件の削除を自動再開します...",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "completeStatus": {
+    "message": "完了しました。成功: $SUCCESS$件 / 失敗: $FAILED$件",
+    "placeholders": {
+      "success": {
+        "content": "$1",
+        "example": "5"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "0"
+      }
+    }
+  },
+  "completeStatusFailedSuffix": {
+    "message": "（失敗分はページを再読み込みして再試行してください）"
+  }
+}

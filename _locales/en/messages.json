@@ -1,0 +1,152 @@
+{
+  "extName": {
+    "message": "NotebookLM Bulk Delete"
+  },
+  "extDescription": {
+    "message": "Select and delete multiple notebooks at once on the NotebookLM home screen."
+  },
+  "toggleButtonEnter": {
+    "message": "Bulk Delete Mode"
+  },
+  "toggleButtonExit": {
+    "message": "Exit Bulk Delete Mode"
+  },
+  "selectAll": {
+    "message": "Select All"
+  },
+  "deselectAll": {
+    "message": "Deselect All"
+  },
+  "executeDelete": {
+    "message": "Delete $COUNT$ selected",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "close": {
+    "message": "Close"
+  },
+  "selectedCount": {
+    "message": "Selected: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "cardsNotFound": {
+    "message": "No notebook cards were found. SELECTORS.card may need adjustment."
+  },
+  "titleUnknown": {
+    "message": "(title unknown)"
+  },
+  "deletingStatus": {
+    "message": "($INDEX$/$TOTAL$) Deleting \"$TITLE$\"...",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "1"
+      },
+      "total": {
+        "content": "$2",
+        "example": "5"
+      },
+      "title": {
+        "content": "$3",
+        "example": "My notebook"
+      }
+    }
+  },
+  "moreButtonNotFound": {
+    "message": "The \"More options\" button was not found (card: $TITLE$). SELECTORS.moreButton may need adjustment.",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "My notebook"
+      }
+    }
+  },
+  "menuNotOpened": {
+    "message": "The menu did not open (card: $TITLE$). SELECTORS.menuPopup may need adjustment.",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "My notebook"
+      }
+    }
+  },
+  "deleteMenuItemNotFound": {
+    "message": "The \"Delete\" item in the menu was not found (card: $TITLE$). SELECTORS.deleteMenuItem may need adjustment.",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "My notebook"
+      }
+    }
+  },
+  "confirmDialogNotShown": {
+    "message": "The confirmation dialog did not appear (card: $TITLE$). SELECTORS.confirmDialog may need adjustment.",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "My notebook"
+      }
+    }
+  },
+  "confirmDeleteButtonNotFound": {
+    "message": "The delete button in the confirmation dialog was not found (card: $TITLE$). SELECTORS.confirmDeleteButton may need adjustment.",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "My notebook"
+      }
+    }
+  },
+  "confirmDeleteMessage": {
+    "message": "This will delete $COUNT$ selected notebook(s). This action cannot be undone. Continue?",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "errorPrefix": {
+    "message": "Error: $MESSAGE$",
+    "placeholders": {
+      "message": {
+        "content": "$1",
+        "example": "something went wrong"
+      }
+    }
+  },
+  "resumeStatus": {
+    "message": "Page was reloaded, automatically resuming deletion of the remaining $COUNT$ item(s)...",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "completeStatus": {
+    "message": "Completed. Success: $SUCCESS$ / Failed: $FAILED$",
+    "placeholders": {
+      "success": {
+        "content": "$1",
+        "example": "5"
+      },
+      "failed": {
+        "content": "$2",
+        "example": "0"
+      }
+    }
+  },
+  "completeStatusFailedSuffix": {
+    "message": " (please reload the page and retry the failed items)"
+  }
+}
